@@ -1,0 +1,7 @@
+export const ADMIN_ROUTER = '/admin'
+export const LOGIN_ROUTER = '/login'
+export const REGISTRATION_ROUTER = '/registration'
+export const REVIEW_ROUTER = '/review'
+export const INFO_ROUTER  = '/'
+export const PROFILE_ROUTER = '/profile'
+export const RECORD_ROUTER = '/record'
