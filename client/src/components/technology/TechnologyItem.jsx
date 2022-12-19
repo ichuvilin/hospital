@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 
 const TechnologyItem = ({title, text, img}) => {
 
-    return (<Card sx={{maxWidth: 345}}>
+    return (<Card sx={{maxWidth: 345, minHeight: 500}}>
         <CardActionArea>
             <CardMedia
                 component="img"

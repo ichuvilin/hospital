@@ -11,16 +11,19 @@ import {
     CardActionArea,
     CardContent,
     CardMedia,
-    CircularProgress, Table, TableBody, TableCell,
-    TableContainer, TableHead, TableRow
+    CircularProgress,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow
 } from "@mui/material";
 import {Context} from "../index";
 import {getOne} from "../http/userAPI";
 import {useNavigate} from "react-router-dom";
 import {INFO_ROUTER} from "../utils/consts";
-import {getAllRecordsForOneUser} from "../http/otherAPI";
 import {observer} from "mobx-react-lite";
-import {getConstNodeType} from "three/examples/jsm/nodes/shadernode/ShaderNode";
 
 const Profile = observer(() => {
     const [spacing, setSpacing] = React.useState(2);
@@ -43,7 +46,6 @@ const Profile = observer(() => {
             )
         }
         getOne(user.user.id).then(data => setGetUser(data))
-        getAllRecordsForOneUser(user.user.id).then(data => setRecords(data));
     }, [])
 
     const logOut = () => {
@@ -53,6 +55,7 @@ const Profile = observer(() => {
         navigate(INFO_ROUTER)
     }
 
+    console.log(getUser["records"])
 
     return (
         <Container>
@@ -101,27 +104,42 @@ const Profile = observer(() => {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {records.map(record => (
-                                            <TableRow
-                                                key={record.id}
-                                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                                            >
-                                                <TableCell component="th" scope="row">
-                                                    {doctors.find(i => i.id == record.doctor_id).first_name}
-                                                    {" "}
-                                                    {doctors.find(i => i.id == record.doctor_id).last_name}
-                                                    {" "}
-                                                    {doctors.find(i => i.id == record.doctor_id).patronymic}
-                                                </TableCell>
-                                                <TableCell align="right">{record.cabinet}</TableCell>
-                                                <TableCell
-                                                    align="right">{record.date.split("T")[0]} {record.date.split("T")[1].substring(0, 5)}
-                                                </TableCell>
-                                                <TableCell component="th" scope="row" align={"right"}>
-                                                    {doctors.find(i => i.id == record.doctor_id).speciality}
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
+                                        {
+                                            getUser["records"] === undefined ?
+                                                <TableRow
+                                                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                                >
+                                                    <TableCell component="th" scope="row">
+                                                    </TableCell>
+                                                    <TableCell align="right"></TableCell>
+                                                    <TableCell align="right">
+                                                    </TableCell>
+                                                    <TableCell component="th" scope="row" align={"right"}>
+
+                                                    </TableCell>
+                                                </TableRow>
+                                                :
+                                                getUser["records"].map(record => (
+                                                    <TableRow
+                                                        key={record.id}
+                                                        sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                                    >
+                                                        <TableCell component="th" scope="row">
+                                                            {doctors.find(i => i.id == record.doctorId).first_name}
+                                                            {" "}
+                                                            {doctors.find(i => i.id == record.doctorId).last_name}
+                                                            {" "}
+                                                            {doctors.find(i => i.id == record.doctorId).patronymic}
+                                                        </TableCell>
+                                                        <TableCell align="right">{record.cabinet}</TableCell>
+                                                        <TableCell
+                                                            align="right">{record.date.split("T")[0]} {record.date.split("T")[1].substring(0, 5)}
+                                                        </TableCell>
+                                                        <TableCell component="th" scope="row" align={"right"}>
+                                                            {doctors.find(i => i.id == record.doctorId).speciality}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                ))}
                                     </TableBody>
                                 </Table>
                             </TableContainer>

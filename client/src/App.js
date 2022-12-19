@@ -6,12 +6,12 @@ import Footer from "./components/navigation/Footer";
 import {observer} from "mobx-react-lite";
 import {Context} from "./index";
 import {check} from "./http/userAPI";
-import {fetchDoctor, fetchReviews} from "./http/otherAPI";
+import {fetchBranch, fetchDoctor, fetchReviews} from "./http/otherAPI";
 
 
 const App = observer(() => {
 
-    const {user, doctors, reviews} = useContext(Context)
+    const {user, doctors, reviews, branch} = useContext(Context)
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -21,6 +21,7 @@ const App = observer(() => {
         }).finally(() => setLoading(false))
         fetchDoctor().then(data => doctors.setDoctors(data))
         fetchReviews().then(data => reviews.setReviews(data))
+        fetchBranch().then(data => branch.setBranch(data))
     }, [])
 
     return (

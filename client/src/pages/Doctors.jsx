@@ -9,6 +9,8 @@ const Doctors = observer(() => {
 
     const {doctors} = useContext(Context)
 
+    console.log(doctors.doctors)
+
     return (
         <Container>
             <Typography component="h1" variant="h5" style={{margin: "50px 0"}}>

@@ -4,5 +4,6 @@ const branchController = require('../controllers/branchController')
 const checkRole = require("../middleware/checkRoleMiddleware")
 
 router.post('/add', checkRole("ADMIN"), branchController.create)
+router.get('/', branchController.getAll)
 
 module.exports = router

@@ -49,7 +49,7 @@ const Auth = observer (() => {
 
         const response = await registration(formData)
         user.setUser(response);
-        user.isAuth(true);
+        user.setIsAuth(true);
         navigate(INFO_ROUTER)
     };
 

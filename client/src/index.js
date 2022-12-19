@@ -5,6 +5,7 @@ import "./index.css"
 import UserStore from "./store/UserStore";
 import DoctorStore from "./store/DoctorStore";
 import ReviewStorage from "./store/ReviewStorage";
+import BranchStore from "./store/BranchStore";
 
 export const Context = createContext(null);
 
@@ -14,7 +15,8 @@ root.render(
         <Context.Provider value={{
             user: new UserStore(),
             doctors: new DoctorStore(),
-            reviews: new ReviewStorage()
+            reviews: new ReviewStorage(),
+            branch: new BranchStore()
         }}>
             <App/>
         </Context.Provider>

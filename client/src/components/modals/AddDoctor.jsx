@@ -1,13 +1,12 @@
-import React from 'react';
-import {Grid, Link, Modal, TextField} from "@mui/material";
+import React, {useContext, useEffect, useState} from 'react';
+import {Grid, InputLabel, Modal, Select, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Avatar from "@mui/material/Avatar";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Button from "@mui/material/Button";
-import {INFO_ROUTER, LOGIN_ROUTER} from "../../utils/consts";
-import {registration} from "../../http/userAPI";
-import {createDoctor} from "../../http/otherAPI";
+import {createDoctor, fetchBranch} from "../../http/otherAPI";
+import MenuItem from '@mui/material/MenuItem';
+import {observer} from "mobx-react-lite";
+import {Context} from "../../index";
 
 const style = {
     position: 'absolute',
@@ -21,7 +20,9 @@ const style = {
     p: 4,
 };
 
-const AddDoctor = ({open, setOpen}) => {
+const AddDoctor = observer(({open, setOpen}) => {
+
+    const {branch} = useContext(Context)
 
     const handleClose = () => setOpen(false);
 
@@ -33,11 +34,11 @@ const AddDoctor = ({open, setOpen}) => {
         formData.append("last_name", data.get('lastName'));
         formData.append("patronymic", data.get('patronymic'));
         formData.append("speciality", data.get('speciality'));
-        formData.append("cabinet_id", data.get('cabinet_id'));
+        formData.append("cabinet", data.get('cabinet_number'));
         formData.append("branch_id", data.get('branch_id'));
         formData.append("photo", data.get("photo"));
         const response = await createDoctor(formData)
-        console.log(response)
+        setOpen(false);
     };
 
     return (
@@ -103,21 +104,28 @@ const AddDoctor = ({open, setOpen}) => {
                                 <TextField
                                     required
                                     fullWidth
-                                    id="cabinet_id"
-                                    label="Cabinet id"
-                                    name="cabinet_id"
-                                    autoComplete="cabinet_id"
+                                    id="cabinet_number"
+                                    label="№ Cabinet"
+                                    name="cabinet_number"
+                                    autoComplete="cabinet_number"
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
-                                    required
+                                    select
                                     fullWidth
+                                    label="Назваие отделения"
+                                    autoComplete="branch"
                                     name="branch_id"
-                                    label="Branch id"
+                                    required
                                     id="branch_id"
-                                    autoComplete="branch_id"
-                                />
+                                >
+                                    {branch.branch.map(({id, name}) => (
+                                        <MenuItem key={id} value={id}>
+                                            {name}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
@@ -146,6 +154,6 @@ const AddDoctor = ({open, setOpen}) => {
             </Box>
         </Modal>
     );
-};
+});
 
 export default AddDoctor;

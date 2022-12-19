@@ -10,8 +10,13 @@ export const fetchReviews = async () => {
     return data;
 }
 
+export const fetchBranch = async () => {
+    const {data} = await $host.get('api/branch')
+    return data
+}
+
 export const createRecord = async (record) => {
-    const {data} = await $authHost.post("api/record/add", record)
+     await $authHost.post("api/record/add", record)
     return "OK";
 }
 
@@ -27,11 +32,6 @@ export const createReview = async (review) => {
 
 export const createDoctor = async (doctor) => {
     const {data} = await $authHost.post("api/doctor/add", doctor)
-    return data;
-}
-
-export const createCabinet = async (cabinet) => {
-    const {data} = await $authHost.post("api/cabinet/add", cabinet)
     return data;
 }
 

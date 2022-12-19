@@ -18,6 +18,7 @@ const DoctorsList = observer(() => {
         return arr
     }
 
+    const renderDoc = docList(doctors.doctors);
 
     return (
         <Container>
@@ -27,7 +28,9 @@ const DoctorsList = observer(() => {
             <Grid sx={{flexGrow: 1}} container spacing={1}>
                 <Grid item xs={12}>
                     <Grid container justifyContent="center" spacing={2}>
-                        {docList(doctors.doctors)[0] === undefined ? doctors.doctors.map(({
+                        {renderDoc[0] === undefined ||
+                        renderDoc[1] === undefined ||
+                        renderDoc[2] === undefined ? doctors.doctors.map(({
                                                                                               id,
                                                                                               first_name,
                                                                                               last_name,

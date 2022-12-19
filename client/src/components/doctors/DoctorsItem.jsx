@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 
 const DoctorsItem = ({first_name, last_name, patronymic, photo, speciality}) => {
     return (
-        <Card sx={{maxWidth: 275}}>
+        <Card sx={{maxWidth: 275, minHeight: 500}}>
             <CardActionArea>
                 <CardMedia
                     component="img"
