@@ -14,7 +14,14 @@ import MenuItem from '@mui/material/MenuItem';
 import MedicationIcon from '@mui/icons-material/Medication';
 import {useContext} from "react";
 import {Context} from "../../index";
-import {ADMIN_ROUTER, LOGIN_ROUTER, PROFILE_ROUTER, RECORD_ROUTER, REVIEW_ROUTER} from "../../utils/consts";
+import {
+    ADMIN_ROUTER,
+    DOCTORS_ROUTER,
+    LOGIN_ROUTER,
+    PROFILE_ROUTER,
+    RECORD_ROUTER,
+    REVIEW_ROUTER
+} from "../../utils/consts";
 import {observer} from "mobx-react-lite";
 
 
@@ -27,6 +34,10 @@ const NavBar = observer(() => {
             name: 'Отзывы',
             path: REVIEW_ROUTER
         },
+        {
+            name: 'Врачи',
+            path: DOCTORS_ROUTER
+        }
     ];
     const settings = [
         {

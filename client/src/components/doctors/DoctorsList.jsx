@@ -10,6 +10,15 @@ const DoctorsList = observer(() => {
 
     const {doctors} = useContext(Context)
 
+    const docList = list => {
+        let arr = []
+        for (let i = 0; i < 3; i++) {
+            arr[i] = list[i];
+        }
+        return arr
+    }
+
+
     return (
         <Container>
             <Typography component="h1" variant="h5" style={{margin: "50px 0"}}>
@@ -18,17 +27,42 @@ const DoctorsList = observer(() => {
             <Grid sx={{flexGrow: 1}} container spacing={1}>
                 <Grid item xs={12}>
                     <Grid container justifyContent="center" spacing={2}>
-                        {doctors.doctors.map(({id, first_name, last_name, patronymic, photo, speciality}) => (
-                            <Grid key={id} item>
-                                <DoctorsItem key={id}
-                                             first_name={first_name}
-                                             last_name={last_name}
-                                             photo={photo}
-                                             patronymic={patronymic}
-                                             speciality={speciality}
-                                />
-                            </Grid>
-                        ))}
+                        {docList(doctors.doctors)[0] === undefined ? doctors.doctors.map(({
+                                                                                              id,
+                                                                                              first_name,
+                                                                                              last_name,
+                                                                                              patronymic,
+                                                                                              photo,
+                                                                                              speciality
+                                                                                          }) => (
+                                <Grid key={id} item>
+                                    <DoctorsItem key={id}
+                                                 first_name={first_name}
+                                                 last_name={last_name}
+                                                 photo={photo}
+                                                 patronymic={patronymic}
+                                                 speciality={speciality}
+                                    />
+                                </Grid>
+                            )) :
+                            docList(doctors.doctors).map(({
+                                                              id,
+                                                              first_name,
+                                                              last_name,
+                                                              patronymic,
+                                                              photo,
+                                                              speciality
+                                                          }) => (
+                                <Grid key={id} item>
+                                    <DoctorsItem key={id}
+                                                 first_name={first_name}
+                                                 last_name={last_name}
+                                                 photo={photo}
+                                                 patronymic={patronymic}
+                                                 speciality={speciality}
+                                    />
+                                </Grid>))
+                        }
                     </Grid>
                 </Grid>
             </Grid>

@@ -1,5 +1,5 @@
 import {
-    ADMIN_ROUTER,
+    ADMIN_ROUTER, DOCTORS_ROUTER,
     INFO_ROUTER,
     LOGIN_ROUTER,
     PROFILE_ROUTER, RECORD_ROUTER,
@@ -12,6 +12,7 @@ import Info from "./pages/Info";
 import Profile from "./pages/Profile";
 import Record from "./pages/Record";
 import Review from "./pages/Review";
+import Doctors from "./pages/Doctors";
 
 export const authRoutes = [
     {
@@ -45,5 +46,9 @@ export const publicRoutes = [
     {
         path: INFO_ROUTER,
         Component: Info
+    },
+    {
+        path: DOCTORS_ROUTER,
+        Component: Doctors
     }
 ]
