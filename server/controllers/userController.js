@@ -5,9 +5,9 @@ const uuid = require("uuid");
 const path = require("path");
 const jwt = require('jsonwebtoken')
 
-const generateJWT = (id, firstName, lastName, patronymic, email, date, registration, role, photo) => {
+const generateJWT = (id, email, role, photo) => {
     return jwt.sign(
-        {id, firstName, lastName, patronymic, email, date, registration, role, photo},
+        {id, email,  role, photo},
         process.env.SECRET_KEY,
         {expiresIn: '24h', algorithm: 'HS512'},
     );
@@ -46,7 +46,7 @@ class UserController {
             photo: fileName
         })
 
-        const token = generateJWT(user.id, last_name, first_name, patronymic, email, date, registration, user.role, fileName);
+        const token = generateJWT(user.id, email, user.role, fileName);
         return res.json({token});
 
     }
@@ -57,19 +57,14 @@ class UserController {
         if (!user) return next(ApiError.internal("Пользователь не найден"));
         let comparePassword = bcrypt.compareSync(password, user.password)
         if (!comparePassword) return next(ApiError.internal("Пароль не верный"));
-        const token = generateJWT(user.id, user.last_name, user.first_name, user.patronymic, email, user.date, user.registration, user.role, user.photo);
+        const token = generateJWT(user.id, email, user.role, user.photo);
         return res.json({token});
     }
 
     async check(req, res, next) {
         const token = generateJWT(
             req.user.id,
-            req.user.last_name,
-            req.user.first_name,
-            req.user.patronymic,
             req.user.email,
-            req.user.date,
-            req.user.registration,
             req.user.role,
             req.user.photo
         )
